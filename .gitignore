@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.vscode/
+.idea/
+*.egg-info/
+dist/
+build/
+.streamlit/
+# Ignore large dataset raw files if needed
+# data/*.csv

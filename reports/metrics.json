@@ -1,0 +1,74 @@
+{
+    "project_name": "E-Commerce Real-Time Purchase Intent Predictor",
+    "dataset": "Online Shoppers Purchasing Intention (UCI, 12,330 sessions)",
+    "target": "Revenue (Purchase True/False)",
+    "positive_class_ratio": 0.15474452554744525,
+    "train_size": 9864,
+    "test_size": 2466,
+    "cv_results": {
+        "Baseline (Dummy)": {
+            "ROC-AUC": 0.5,
+            "ROC-AUC Std": 0.0,
+            "PR-AUC": 0.15470397012817047,
+            "F1-Score": 0.0,
+            "Recall": 0.0,
+            "Accuracy": 0.8452960298718295
+        },
+        "Logistic Regression": {
+            "ROC-AUC": 0.9057579241940751,
+            "ROC-AUC Std": 0.006381745125263732,
+            "PR-AUC": 0.6679676650942915,
+            "F1-Score": 0.6182640247027524,
+            "Recall": 0.7608057430622521,
+            "Accuracy": 0.8544202720499563
+        },
+        "Random Forest": {
+            "ROC-AUC": 0.9300405431309992,
+            "ROC-AUC Std": 0.005038124703442617,
+            "PR-AUC": 0.736141180468656,
+            "F1-Score": 0.6684747245606911,
+            "Recall": 0.8230579663559412,
+            "Accuracy": 0.8734798070092291
+        },
+        "LightGBM": {
+            "ROC-AUC": 0.9318766553306148,
+            "ROC-AUC Std": 0.003092770089899026,
+            "PR-AUC": 0.7458181991492931,
+            "F1-Score": 0.674039120792506,
+            "Recall": 0.7968498874959821,
+            "Accuracy": 0.8806779453658878
+        }
+    },
+    "best_hyperparameters": {
+        "learning_rate": 0.03,
+        "min_child_samples": 50,
+        "n_estimators": 200,
+        "num_leaves": 15,
+        "scale_pos_weight": 5.462264150943396
+    },
+    "test_scores": {
+        "ROC_AUC": 0.9329,
+        "PR_AUC": 0.7391,
+        "Accuracy": 0.8593,
+        "F1_Score_default_th": 0.6491,
+        "Recall_default_th": 0.8403,
+        "Precision_default_th": 0.5288,
+        "Optimal_F1_Threshold": 0.73,
+        "Optimal_F1_Score": 0.6775,
+        "Optimal_Recall": 0.7094,
+        "Optimal_Precision": 0.6483
+    },
+    "confusion_matrix_test": {
+        "TN": 1798,
+        "FP": 286,
+        "FN": 61,
+        "TP": 321
+    },
+    "top_5_features": [
+        "ExitRates",
+        "Product_Page_Ratio",
+        "PageValue_Bounce_Ratio",
+        "PageValues",
+        "ProductRelated_Duration"
+    ]
+}
