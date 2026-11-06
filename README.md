@@ -94,7 +94,7 @@ ecommerce-purchase-intent/
 
 ### 1. Clone the repository & enter directory:
 ```bash
-git clone https://github.com/your-username/ecommerce-purchase-intent.git
+git clone https://github.com/patrickemad20112007-cpu/ecommerce-purchase-intent.git
 cd ecommerce-purchase-intent
 ```
 

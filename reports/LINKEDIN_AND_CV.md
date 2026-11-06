@@ -36,7 +36,7 @@ In my NextGen Institute Machine Learning internship, our team engineered an end-
 💡 **The Biggest Takeaway:** In severe class imbalance (~15.5% conversion), **Accuracy is deceptive** (a dummy model gets 84.5% accuracy with 0% utility). Optimizing directly for PR-AUC and Recall is what unlocks real commercial value.
 
 🔗 **Try the live app:** [Streamlit App Link]  
-💻 **Code & Notebook:** [GitHub Repository Link]  
+💻 **Code & Notebook:** https://github.com/patrickemad20112007-cpu/ecommerce-purchase-intent  
 
 Huge thanks to our instructors and mentors at NextGen Institute!
 
