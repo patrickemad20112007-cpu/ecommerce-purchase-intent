@@ -210,8 +210,15 @@ with tab1:
             'Weekend': weekend
         }])
 
-        prepared_input = prepare_input(input_data)
-        prob = model_pipeline.predict_proba(prepared_input)[0, 1]
+        total_pages_entered = admin_pages + info_pages + prod_pages
+        
+        # Defensive check: A visitor who visited 0 pages cannot have purchase intent
+        if total_pages_entered == 0:
+            prob = 0.0
+            st.info("ℹ️ **ملاحظة منطقية:** عدد الصفحات المزارة = 0 (الزائر لم يفتح أي صفحة في الموقع بعد)، وبالتالي احتمالية الشراء = 0.0%.")
+        else:
+            prepared_input = prepare_input(input_data)
+            prob = model_pipeline.predict_proba(prepared_input)[0, 1]
         
         st.markdown("---")
         st.markdown("### 📊 Prediction Result & Automated Intervention Policy")
