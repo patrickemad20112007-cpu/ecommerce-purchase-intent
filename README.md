@@ -33,6 +33,17 @@ Models evaluated on **2,466 untouched held-out sessions** with 5-Fold Stratified
 
 > **Key Evaluation Note:** Because only 15.5% of visitors convert, standard **Accuracy is deceptive**. A dummy model predicting "no purchase" scores 84.5% accuracy but catches zero buyers. **PR-AUC and Recall** are the primary commercial drivers.
 
+### 📈 Evaluation Curves & Confusion Matrix
+<p align="center">
+  <img src="reports/figures/eval_roc_pr_curves.png" width="58%" alt="ROC and PR Curves" />
+  <img src="reports/figures/eval_confusion_matrix.png" width="38%" alt="Confusion Matrix" />
+</p>
+
+### 🔍 Top Influential Drivers (LightGBM Split Importance)
+<p align="center">
+  <img src="reports/figures/feature_importance.png" width="75%" alt="Feature Importance" />
+</p>
+
 ---
 
 ## 💡 The Business Decision Policy
