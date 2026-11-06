@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>E-Commerce Purchase Intent Prediction - NextGen ML Project</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/white.css">
+  <style>
+    .reveal h1, .reveal h2, .reveal h3 { color: #1E3A8A; font-weight: 700; }
+    .badge { background: #3B82F6; color: white; padding: 4px 12px; border-radius: 6px; font-size: 0.7em; }
+    .metric-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 25px; }
+    .metric-card { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 15px; font-size: 0.75em; text-align: center; }
+    .metric-val { font-size: 1.8em; font-weight: bold; color: #0284C7; }
+    .highlight-box { background: #EFF6FF; border-left: 5px solid #2563EB; padding: 15px; border-radius: 4px; font-size: 0.8em; text-align: left; }
+    table { font-size: 0.65em; width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th { background: #1E3A8A; color: white; padding: 8px; }
+    td { padding: 8px; border-bottom: 1px solid #CBD5E1; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- Slide 1 -->
+      <section>
+        <h2>🛒 AI-Driven Purchase Intent & Dynamic Intervention Engine</h2>
+        <h4>NextGen Institute · Final Machine Learning Project</h4>
+        <p><span class="badge">E-Commerce Growth</span> <span class="badge">LightGBM & Scikit-Learn</span> <span class="badge">Streamlit</span></p>
+        <p style="font-size: 0.8em; color: #4B5563; margin-top: 30px;">Presenter: Patrick Emad | Machine Learning Engineer</p>
+      </section>
+
+      <!-- Slide 2 -->
+      <section>
+        <h3>1. The Business Problem</h3>
+        <div class="highlight-box">
+          <b>The Core Challenge:</b> Over 84% of e-commerce sessions abandon carts without buying.<br><br>
+          <b>The Costly Mistake:</b> Blanketing all visitors with coupons wastes margins on organic buyers and burns marketing budget on casual visitors.<br><br>
+          <b>The Solution:</b> Real-time session classification (&lt;5ms) to predict intent and trigger dynamic actions (Protect Margin vs 15% Exit Voucher vs Live Chat).
+        </div>
+      </section>
+
+      <!-- Slide 3 -->
+      <section>
+        <h3>2. Data Understanding</h3>
+        <ul>
+          <li><b>Source:</b> UCI Machine Learning Repository (12,330 real browsing sessions).</li>
+          <li><b>Features:</b> 18 columns (Page views, durations, bounce rates, exit rates, GA PageValues, visitor type).</li>
+          <li><b>Severe Imbalance:</b> 84.5% non-buyers vs 15.5% buyers (5.46:1 ratio).</li>
+          <li><b>Key Lesson:</b> Standard accuracy is misleading; a dummy baseline gets 84.5% accuracy with zero business utility.</li>
+        </ul>
+      </section>
+
+      <!-- Slide 4 -->
+      <section>
+        <h3>3. Key EDA Insights</h3>
+        <ul style="font-size: 0.85em;">
+          <li><b>Google Analytics PageValues:</b> 78.4% of purchasers visit pages with positive PageValues (avg score: 27.2 vs 1.9 for abandoners).</li>
+          <li><b>Bounce & Exit Rates:</b> Abandoners experience 3x higher bounce rates and 2.5x higher exit rates.</li>
+          <li><b>Seasonal Spike:</b> November traffic converts at 25.3% due to holiday shopping.</li>
+          <li><b>Returning Visitors:</b> Represent &gt;85% of volume; new visitors have higher conversion density when viewing products.</li>
+        </ul>
+      </section>
+
+      <!-- Slide 5 -->
+      <section>
+        <h3>4. Preprocessing & Leakage Prevention</h3>
+        <div class="highlight-box">
+          <b>Strict 80/20 Stratified Split:</b> Executed before any scaling, encoding, or fitting to guarantee ZERO data leakage.<br><br>
+          <b>Engineered Features:</b>
+          <ul>
+            <li><code>Product_Page_Ratio</code>: Product page views / Total page views</li>
+            <li><code>Avg_Duration_Per_Page</code>: Total duration / Total pages</li>
+            <li><code>PageValue_Bounce_Ratio</code>: PageValues / (BounceRates + 1e-4)</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Slide 6 -->
+      <section>
+        <h3>5. Model Architecture & Benchmarking</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>ROC-AUC</th>
+              <th>PR-AUC</th>
+              <th>Buyer Recall</th>
+              <th>Accuracy</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Baseline (Dummy Majority)</td>
+              <td>0.5000</td>
+              <td>0.1547</td>
+              <td>0.00%</td>
+              <td>84.53%</td>
+            </tr>
+            <tr>
+              <td>Logistic Regression (Balanced)</td>
+              <td>0.9058</td>
+              <td>0.6680</td>
+              <td>76.08%</td>
+              <td>85.44%</td>
+            </tr>
+            <tr>
+              <td>Random Forest (Balanced)</td>
+              <td>0.9300</td>
+              <td>0.7361</td>
+              <td>82.31%</td>
+              <td>87.35%</td>
+            </tr>
+            <tr style="background:#DCFCE7; font-weight:bold;">
+              <td>Tuned LightGBM (Champion)</td>
+              <td>0.9329</td>
+              <td>0.7391</td>
+              <td>84.03%</td>
+              <td>85.93%</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- Slide 7 -->
+      <section>
+        <h3>6. Final Test Set Results</h3>
+        <p style="font-size: 0.75em;">Evaluated on untouched 2,466 test sessions</p>
+        <div class="metric-grid">
+          <div class="metric-card">
+            <div class="metric-val">0.9329</div>
+            <div>Test ROC-AUC</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val">0.7391</div>
+            <div>Test PR-AUC</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val">84.03%</div>
+            <div>Buyer Recall</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val">321 / 382</div>
+            <div>Buyers Caught</div>
+          </div>
+        </div>
+        <p style="font-size:0.75em; margin-top: 25px; color:#4B5563;">Only 61 false negatives across the entire test set!</p>
+      </section>
+
+      <!-- Slide 8 -->
+      <section>
+        <h3>7. Strategic Business Decision Policy</h3>
+        <div style="font-size: 0.75em; display:flex; justify-content:space-between; gap:10px;">
+          <div style="background:#DEF7EC; padding:12px; border-radius:6px; flex:1;">
+            <b>High Intent (&ge; 70%)</b><br>
+            <span style="color:#03543F;">✅ Protect Margin</span><br>
+            Zero discount; organic buyer. Streamline checkout.
+          </div>
+          <div style="background:#FEF08A; padding:12px; border-radius:6px; flex:1;">
+            <b>Hesitant (35% - 70%)</b><br>
+            <span style="color:#713F12;">🎁 Intervene (15% Voucher)</span><br>
+            Targeted exit popup or proactive live chat assist.
+          </div>
+          <div style="background:#F3F4F6; padding:12px; border-radius:6px; flex:1;">
+            <b>Casual (&lt; 35%)</b><br>
+            <span style="color:#374151;">⚪ Passive Navigation</span><br>
+            No discounting; offer newsletter subscription.
+          </div>
+        </div>
+      </section>
+
+      <!-- Slide 9 -->
+      <section>
+        <h3>8. Campaign ROI Simulator (Stretch Goal)</h3>
+        <div class="highlight-box">
+          <b>Monthly Impact (50k visits, $75 AOV, 35% margin):</b>
+          <ul>
+            <li>Targeting hesitant 15% segment (7,500 visitors)</li>
+            <li>Extra customer orders won: <b>+1,500 orders/month</b></li>
+            <li>Gross incremental revenue: <b>+$112,500/month</b></li>
+            <li>Net added profit after coupon discounts: <b>+$22,500/month</b></li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- Slide 10 -->
+      <section>
+        <h3>9. Live Streamlit Web App</h3>
+        <p style="font-size:0.8em;">Includes preset persona buttons, real-time prediction gauge, decision prescription, and interactive ROI simulator.</p>
+        <div class="highlight-box" style="text-align:center;">
+          <b>GitHub Repository:</b><br>
+          <a href="https://github.com/patrickemad20112007-cpu/ecommerce-purchase-intent" target="_blank">github.com/patrickemad20112007-cpu/ecommerce-purchase-intent</a>
+        </div>
+      </section>
+
+      <!-- Slide 11 -->
+      <section>
+        <h3>10. Summary & Key Takeaways</h3>
+        <ul style="font-size: 0.8em;">
+          <li><b>Accuracy is misleading:</b> PR-AUC and Recall are the true metrics for conversion.</li>
+          <li><b>Domain features win:</b> Behavioral engagement ratios outranked raw duration metrics.</li>
+          <li><b>Machine Learning delivers real revenue:</b> Connecting predictions to a concrete decision matrix directly protects profits.</li>
+        </ul>
+        <h4 style="margin-top:30px; color:#1E3A8A;">Thank You! Questions?</h4>
+      </section>
+
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      slideNumber: true,
+      transition: 'slide'
+    });
+  </script>
+</body>
+</html>
